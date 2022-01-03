@@ -1,29 +1,49 @@
-gsap.from("body", {
-  backgroundColor: "rgba(255,255,255)",
-  duration: 1.7,
-  ease: "none",
+const runStart = () => {
+  console.log("onStart");
+}
+const runUpdate = () => {
+  console.log("onUpdate");
+}
+const runComplete = () => {
+  console.log("onComplete");
+}
+
+
+const timeline =gsap.timeline({
+  duration:1,
+  paused:true,
+  onStart:runStart,
+  onUpdate:runUpdate,
+  onComplete:runComplete,
+
 });
 
-gsap.fromTo(
-  ["h1", ".intro"],
-  { y: -40, opacity: 0 },
-  { y: 0, opacity: 1, duration: 2, stagger: 0.1, ease: "expo" }
-);
+timeline
+    .from("body", {
+      backgroundColor: "rgba(255,255,255)",
+      duration: 1.7,
+      ease: "none",
+    })
+    .fromTo(
+      ["h1", ".intro"],
+      { y: -20, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.2, ease: "power1.out" },
+    )
+    .from(
+      ["img", "h2"],
+      { y: 0, opacity: 0,}
+    )
+    .fromTo(
+      "ul li",
+      { y: -20, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.2, ease:"power.out"}
+      ,
+    )
 
-gsap.fromTo(
-  ["img", "h2"],
-  { y: -40, opacity: 0 },
-  { y: 0, opacity: 1, duration: 1.5, delay: 2 }
-);
+    const playButton = document.getElementById("btnPlay");
 
-gsap.fromTo(
-  ["ul"],
-  { y: -40, opacity: 0 },
-  { y: 0, opacity: 1, duration: 2, delay: 2, stagger: 0.1 }
-);
+    playButton.addEventListener("click", () => {
+      timeline.play();
+    })
 
-gsap.fromTo(
-  "li",
-  { y: 0, opacity: 0 },
-  { y: 0, opacity: 1, duration: 2, delay: 4, stagger: 0.1 }
-);
+  
